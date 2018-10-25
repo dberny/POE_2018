@@ -1,7 +1,9 @@
 
 // 29.751 MM PER REVOLUTION
 // 0.018594 MM PER STEP
-float mmPerStep = 0.018594;
+//float mmPerStep = 0.018594;
+// numsteps per Rev = 3200
+float mmPerStep = 29.751/3200;
 
 int distance = 150; //DISTANCE IN MM
 
@@ -14,14 +16,8 @@ const int xStepPin2 = 60;
 const int xDirPin2 = 61;
 const int xEnablePin2 = 56; 
 
+
 int numSteps = distance/mmPerStep;
-//int numSteps = distanceToSteps(distance);
-//
-//int distanceToSteps(int distance) {
-//  int steps = 0;
-//  steps = distance/mmPerStep;
-//  return steps;
-//}
 
 
 void setup() {
@@ -37,42 +33,35 @@ void setup() {
   digitalWrite(xEnablePin2,LOW);
   Serial.begin(9600);
   Serial.print(numSteps);
-  
-}
-void loop() {
+
+
   digitalWrite(xDirPin1,HIGH); // Enables the motor to move in a particular direction
+  digitalWrite(xDirPin2,LOW);
   // Makes 200 pulses for making one full cycle rotation
   for(int x = 0; x < numSteps; x++) {
-    digitalWrite(xStepPin1,HIGH); 
+    digitalWrite(xStepPin1,HIGH);
+    digitalWrite(xStepPin2,HIGH);
     delayMicroseconds(500); 
-    digitalWrite(xStepPin1,LOW); 
+    digitalWrite(xStepPin1,LOW);
+    digitalWrite(xStepPin2,LOW);
     delayMicroseconds(500); 
   }
-//  digitalWrite(xDirPin2,HIGH); // Enables the motor to move in a particular direction
-//  // Makes 200 pulses for making one full cycle rotation
-//  for(int x = 0; x < numSteps; x++) {
-//    digitalWrite(xStepPin2,HIGH); 
-//    delayMicroseconds(500); 
-//    digitalWrite(xStepPin2,LOW); 
-//    delayMicroseconds(500); 
-//  }
-//  delay(1000); // One second delay
+  
+  }
+  delay(1000); // One second delay
   
   digitalWrite(xDirPin1,LOW); //Changes the rotations direction
-  // Makes 400 pulses for making two full cycle rotation
+  digitalWrite(xDirPin2,HIGH);
   for(int x = 0; x < numSteps; x++) {
     digitalWrite(xStepPin1,HIGH);
+    digitalWrite(xStepPin2,HIGH);
     delayMicroseconds(500);
     digitalWrite(xStepPin1,LOW);
+    digitalWrite(xStepPin2,LOW);
     delayMicroseconds(500);
   }
-//  digitalWrite(xDirPin2,LOW); //Changes the rotations direction
-//  // Makes 400 pulses for making two full cycle rotation
-//  for(int x = 0; x < numSteps; x++) {
-//    digitalWrite(xStepPin2,HIGH);
-//    delayMicroseconds(500);
-//    digitalWrite(xStepPin2,LOW);
-//    delayMicroseconds(500);
-//  }
-//  delay(1000);
+  delay(1000);
+}
+void loop() {
+  
 }
