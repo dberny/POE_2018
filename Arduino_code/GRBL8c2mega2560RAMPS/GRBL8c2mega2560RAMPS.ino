@@ -1,0 +1,16 @@
+#include <avr/interrupt.h>
+#include <avr/pgmspace.h>
+#include "config.h"
+#include "planner.h"
+#include "nuts_bolts.h"
+#include "stepper.h"
+//#include "spindle_control.h"
+//#include "coolant_control.h"
+#include "motion_control.h"
+#include "gcode.h"
+#include "protocol.h"
+#include "limits.h"
+#include "report.h"
+#include "settings.h"
+#include "serial.h"
+#include "fastio.h"

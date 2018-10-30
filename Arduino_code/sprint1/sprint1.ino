@@ -5,7 +5,7 @@
 // numsteps per Rev = 3200
 float mmPerStep = 29.751/3200;
 
-int distance = 150; //DISTANCE IN MM
+int distance = 120; //DISTANCE IN MM
 
 // defines pins numbers
 const int xStepPin1 = 54; 
@@ -34,10 +34,10 @@ void setup() {
   Serial.begin(9600);
   Serial.print(numSteps);
 
-
+//  FORWARD ONCE
   digitalWrite(xDirPin1,HIGH); // Enables the motor to move in a particular direction
   digitalWrite(xDirPin2,LOW);
-  // Makes 200 pulses for making one full cycle rotation
+  // Makes 3200 pulses for making one full cycle rotation
   for(int x = 0; x < numSteps; x++) {
     digitalWrite(xStepPin1,HIGH);
     digitalWrite(xStepPin2,HIGH);
@@ -46,10 +46,9 @@ void setup() {
     digitalWrite(xStepPin2,LOW);
     delayMicroseconds(500); 
   }
-  
-  }
   delay(1000); // One second delay
-  
+
+//  BACKWARDS ONCE
   digitalWrite(xDirPin1,LOW); //Changes the rotations direction
   digitalWrite(xDirPin2,HIGH);
   for(int x = 0; x < numSteps; x++) {
