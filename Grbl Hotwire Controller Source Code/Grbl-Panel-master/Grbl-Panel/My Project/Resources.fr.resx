@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button_Connection_Text_Connect" xml:space="preserve">
+    <value>Connecter</value>
+  </data>
+  <data name="GrblGui_grblgui_unload_Are_You_Certain_That_You_Want_To_Close" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir fermer?</value>
+  </data>
+  <data name="MsgFilter_PreFilterMessage_Start" xml:space="preserve">
+    <value>Départ</value>
+  </data>
+  <data name="GrblGui_btnConnDisconnect_Click_Disconnect" xml:space="preserve">
+    <value>Déconnecter</value>
+  </data>
+  <data name="GrblGui_btnConnDisconnect_Click_Please_Select_A_Com_Port" xml:space="preserve">
+    <value>Sélectionnez un Port COM, SVP</value>
+  </data>
+  <data name="GrblGui_btnConnDisconnect_Click_Or_Connect_The_Cable" xml:space="preserve">
+    <value>Ou connectez le câble.</value>
+  </data>
+  <data name="GrblGui_btnConnDisconnect_Click_Connect_Error" xml:space="preserve">
+    <value>Erreur de connexion</value>
+  </data>
+  <data name="GrblGui_btnConnDisconnect_Click_Please_Enter_An_IP_Address" xml:space="preserve">
+    <value>Entrez une adresse IP, SVP</value>
+  </data>
+  <data name="GrblGui_btnConnDisconnect_Click_And_A_Port_Number_In_The_Format" xml:space="preserve">
+    <value>et un numéro de port, dans le format</value>
+  </data>
+  <data name="GrblGui_btnConnDisconnect_Click_Connect" xml:space="preserve">
+    <value>Connecter</value>
+  </data>
+  <data name="GrblGui_btnConnDisconnect_Click_PleaseSelectAComPort" xml:space="preserve">
+    <value>Sélectionnez un port Com SVP</value>
+  </data>
+  <data name="GrblGui_btnConnDisconnect_Click_OrConnectTheCable" xml:space="preserve">
+    <value>ou connectez le cable</value>
+  </data>
+  <data name="GrblGui_btnConnDisconnect_Click_PleaseEnterAnIPAddress" xml:space="preserve">
+    <value>Entrez une adresse IP SVP</value>
+  </data>
+  <data name="GrblGui_btnConnDisconnect_Click_AndAPortNumberInTheFormat" xml:space="preserve">
+    <value>et un N° de port au format </value>
+  </data>
+  <data name="GrblGui_btnConnDisconnect_Click_Idle" xml:space="preserve">
+    <value>Attente</value>
+  </data>
+  <data name="GrblGui_btnConnDisconnect_Click_End" xml:space="preserve">
+    <value>Fin</value>
+  </data>
+  <data name="GrblGui_btnConnDisconnect_Click_Disconnected" xml:space="preserve">
+    <value>Déconnecté</value>
+  </data>
+  <data name="GrblGui_grblgui_unload_AreYouCertainThatYouWantToClose" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir fermer?</value>
+  </data>
+  <data name="GrblGui_showGrblStatus_IDLE" xml:space="preserve">
+    <value>PAUSE</value>
+  </data>
+  <data name="GrblGui_showGrblStatus_RUN" xml:space="preserve">
+    <value>MARCHE</value>
+  </data>
+  <data name="GrblGui_showGrblStatus_Resume" xml:space="preserve">
+    <value>Reprise</value>
+  </data>
+  <data name="GrblGui_showGrblStatus_HOLD" xml:space="preserve">
+    <value>RETIENS</value>
+  </data>
+  <data name="GrblGui_showGrblStatus_CHECK" xml:space="preserve">
+    <value>VERIF.</value>
+  </data>
+  <data name="AboutBox_AboutBox_Load_GrblPanelIsDesignedForUseWithGrbl09GOrLater" xml:space="preserve">
+    <value>Le panneau de contrôle Grbl est conçu pour être utilisé avec Grbl 0.9G où suivant</value>
+  </data>
+  <data name="AboutBox_AboutBox_Load_ForMoreDetailsOnThisAppPleaseVisit" xml:space="preserve">
+    <value>Pour plus de détails sur cette application, visitez:</value>
+  </data>
+  <data name="GrblGcodeView_ExpectedCommandLetter" xml:space="preserve">
+    <value>Lettre de commande attendue</value>
+  </data>
+  <data name="GrblGcodeView_BadNumberFormat" xml:space="preserve">
+    <value>Mauvais format de nombre</value>
+  </data>
+  <data name="GrblGcodeView_InvalidStatement" xml:space="preserve">
+    <value>Déclaration invalide </value>
+  </data>
+  <data name="GrblGcodeView_Value0" xml:space="preserve">
+    <value>Valeur &lt; 0</value>
+  </data>
+  <data name="GrblGcodeView_SettingDisabled" xml:space="preserve">
+    <value>Réglage désactivé</value>
+  </data>
+  <data name="GrblGcodeView_Value3Usec" xml:space="preserve">
+    <value>Valeur &lt; 3 usec</value>
+  </data>
+  <data name="GrblGcodeView_EEPROMReadFailUsingDefaults" xml:space="preserve">
+    <value>Lecture EEPROM ratée, défauts utilisés</value>
+  </data>
+  <data name="GrblGcodeView_NotIdle" xml:space="preserve">
+    <value>Pas en attente</value>
+  </data>
+  <data name="GrblGcodeView_AlarmLock" xml:space="preserve">
+    <value>Blocage Alarme</value>
+  </data>
+  <data name="GrblGcodeView_HomingIsNotEnabled" xml:space="preserve">
+    <value>Référencement pas activé</value>
+  </data>
+  <data name="GrblGcodeView_LineOverflow" xml:space="preserve">
+    <value>Dépassement de ligne</value>
+  </data>
+  <data name="GrblGcodeView_StepRate30kHz" xml:space="preserve">
+    <value>Taux des pas &gt; 30 Khz</value>
+  </data>
+  <data name="GrblGcodeView_CheckDoor" xml:space="preserve">
+    <value>Vérifier la porte</value>
+  </data>
+  <data name="GrblGcodeView_UnsupportedCommand" xml:space="preserve">
+    <value>Commande non supportée</value>
+  </data>
+  <data name="GrblGcodeView_ModalGroupViolation" xml:space="preserve">
+    <value>Violation groupe modal</value>
+  </data>
+  <data name="GrblGcodeView_UndefinedFeedRate" xml:space="preserve">
+    <value>Taux d'avance non défini</value>
+  </data>
+  <data name="GrblGcodeView_CommandValueIsNotInteger" xml:space="preserve">
+    <value>Valeur de la commande pas un entier</value>
+  </data>
+  <data name="GrblGcodeView_AxisCommandConflict" xml:space="preserve">
+    <value>Conflit Axe de la commande</value>
+  </data>
+  <data name="GrblGcodeView_WordRepeated" xml:space="preserve">
+    <value>Mot répété</value>
+  </data>
+  <data name="GrblGcodeView_NoAxisWords" xml:space="preserve">
+    <value>Pas de mot d'axe</value>
+  </data>
+  <data name="GrblGcodeView_InvalidLineNumber" xml:space="preserve">
+    <value>N° de ligne invalide</value>
+  </data>
+  <data name="GrblGcodeView_ValueWordMissing" xml:space="preserve">
+    <value>Valeur du mot manquante</value>
+  </data>
+  <data name="GrblGcodeView_UnsupportedCoordinateSystem" xml:space="preserve">
+    <value>Système de coordonnées non supporté</value>
+  </data>
+  <data name="GrblGcodeView_G53InvalidMotionMode" xml:space="preserve">
+    <value>Mode mouvement G53 invalide</value>
+  </data>
+  <data name="GrblGcodeView_AxisWordsExist" xml:space="preserve">
+    <value>Mot d'Axe existant</value>
+  </data>
+  <data name="GrblGcodeView_NoAxisWordsInPlane" xml:space="preserve">
+    <value>Pas de mot d'axe dans ce plan</value>
+  </data>
+  <data name="GrblGcodeView_InvalidTarget" xml:space="preserve">
+    <value>But non valide</value>
+  </data>
+  <data name="GrblGcodeView_ArcRadiusError" xml:space="preserve">
+    <value>Erreur de rayon d'arc</value>
+  </data>
+  <data name="GrblGcodeView_NoOffsetsInPlane" xml:space="preserve">
+    <value>Pas de décalage dans ce plan</value>
+  </data>
+  <data name="GrblGcodeView_UnusedWords" xml:space="preserve">
+    <value>Mots inutilisés</value>
+  </data>
+  <data name="GrblGcodeView_G43DynamicAxisError" xml:space="preserve">
+    <value>G43 erreur axe dynamique</value>
+  </data>
+  <data name="GrblGcodeView_New_Line" xml:space="preserve">
+    <value>Ligne</value>
+  </data>
+  <data name="GrblIF_Disconnect_ErrorOnCloseOfGrblPort" xml:space="preserve">
+    <value>Erreur à la fermeture du port Grbl</value>
+  </data>
+  <data name="GrblIF_sendData_FatalErrorOnWriteToGrbl" xml:space="preserve">
+    <value>Erreur fatale en écriture dans Grbl</value>
+  </data>
+  <data name="GrblGui_GrblMacroButtons_FormClosing_AreYouSureYouWantToExitWithoutSavingYourMacroChanges" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir quitter sans sauver vos modifications de Macro?</value>
+  </data>
+  <data name="GrblGui_GrblMacroButtons_FormClosing_ConfirmExitWithoutSaving" xml:space="preserve">
+    <value>Confirmez sortie sans sauver</value>
+  </data>
+  <data name="GrblGui_GrblMacroButtons_Load_Add" xml:space="preserve">
+    <value>Ajout</value>
+  </data>
+  <data name="GrblGui_dgMacros_DoubleClick_Update" xml:space="preserve">
+    <value>M à J</value>
+  </data>
+  <data name="GrblGui_btnDeleteMacro_Click_AreYouSureYouWantToDeleteThe" xml:space="preserve">
+    <value>Êtes-vous sûr de vouloir effacer la </value>
+  </data>
+  <data name="GrblGui_btnDeleteMacro_Click_ConfirmDelete" xml:space="preserve">
+    <value>Confirmer effacement</value>
+  </data>
+  <data name="GrblGui_UpdateToolTip_NameAppearsOnTheButtonSoKeepItSmall" xml:space="preserve">
+    <value>Le nom apparaît sur le bouton, faites court</value>
+  </data>
+  <data name="GrblGui_UpdateToolTip_DeleteTheSelectedMacro" xml:space="preserve">
+    <value>Effacer la macro sélectionnée</value>
+  </data>
+  <data name="GrblGui_UpdateToolTip_DblClickNameToEditMacro" xml:space="preserve">
+    <value>Dble-clic sur le nom pour éditer la macro</value>
+  </data>
+  <data name="GrblGui_UpdateToolTip_GetMeOuttaHereCancelAllChanges" xml:space="preserve">
+    <value>Sortez-moi de là, abandonnez toutes les modification</value>
+  </data>
+  <data name="GrblGui_UpdateToolTip_GCodeToSendWhenTheButtonIsClicked" xml:space="preserve">
+    <value>G-Code à envoyer lorsque le bouton est cliqué</value>
+  </data>
+  <data name="GrblGui_UpdateToolTip_CommitAllChangesToSettingsAndClose" xml:space="preserve">
+    <value>Valider toutes les modifications et fermer</value>
+  </data>
+  <data name="GrblGui_UpdateToolTip_LimitIs5Macros" xml:space="preserve">
+    <value>La limite est 5 macros</value>
+  </data>
+  <data name="GrblGui_btnAdd_Click_YouNeedToAddSomeGCodeToSaveAMacro" xml:space="preserve">
+    <value>Il vous faut ajouter du G-Code pour sauver une macro</value>
+  </data>
+  <data name="GrblGui_btnAdd_Click_DataValidationError" xml:space="preserve">
+    <value>Erreur en validation de données</value>
+  </data>
+  <data name="GrblGui_btnAdd_Click_YouCannotCreateAMacroWithoutAName" xml:space="preserve">
+    <value>Vous ne pouvez pas créer une macro sans nom</value>
+  </data>
+  <data name="GrblSettings_StepPulseUsec" xml:space="preserve">
+    <value>Signal pas, uSec</value>
+  </data>
+  <data name="GrblSettings_StepIdleDelayMsec" xml:space="preserve">
+    <value>Délai pause entre pas, mSec</value>
+  </data>
+  <data name="GrblSettings_StepPortInvertMask" xml:space="preserve">
+    <value>Masque inversion signal pas</value>
+  </data>
+  <data name="GrblSettings_DirPortInvertMask" xml:space="preserve">
+    <value>Masque inversion direction pas:</value>
+  </data>
+  <data name="GrblSettings_StepEnableInvertBool" xml:space="preserve">
+    <value>Inversion activation pas, bool</value>
+  </data>
+  <data name="GrblSettings_LimitPinsInvertBool" xml:space="preserve">
+    <value>Inversion switch limites, bool</value>
+  </data>
+  <data name="GrblSettings_ProbePinInvertBool" xml:space="preserve">
+    <value>Inversion de la sonde, bool</value>
+  </data>
+  <data name="GrblSettings_StatusReportMask" xml:space="preserve">
+    <value>Masque du suivi de statut</value>
+  </data>
+  <data name="GrblSettings_JunctionDeviationMm" xml:space="preserve">
+    <value>Ecart de jonction, mm</value>
+  </data>
+  <data name="GrblSettings_ArcToleranceMm" xml:space="preserve">
+    <value>Tolérance d'Arc, mm</value>
+  </data>
+  <data name="GrblSettings_ReportInchesBool" xml:space="preserve">
+    <value>Suivi de statut en pouces, bool</value>
+  </data>
+  <data name="GrblSettings_SoftLimitsBool" xml:space="preserve">
+    <value>Limites Logiques, bool</value>
+  </data>
+  <data name="GrblSettings_HardLimitsBool" xml:space="preserve">
+    <value>Limites Physiques, bool</value>
+  </data>
+  <data name="GrblSettings_HomingCycleBool" xml:space="preserve">
+    <value>Cycle de référencement (homing), bool</value>
+  </data>
+  <data name="GrblSettings_HomingDirInvertMask" xml:space="preserve">
+    <value>Masque inversion dir. Référencement</value>
+  </data>
+  <data name="GrblSettings_HomingFeedMmMin" xml:space="preserve">
+    <value> Avance Référencement, mm/min</value>
+  </data>
+  <data name="GrblSettings_HomingSeekMmMin" xml:space="preserve">
+    <value> Détection Référencement, mm/min</value>
+  </data>
+  <data name="GrblSettings_HomingDebounceMsec" xml:space="preserve">
+    <value>Délai rebond référencement ,mSec</value>
+  </data>
+  <data name="GrblSettings_HomingPullOffMm" xml:space="preserve">
+    <value>Retrait Référencement, mm</value>
+  </data>
+  <data name="GrblSettings_RpmMax" xml:space="preserve">
+    <value>Max t/mn</value>
+  </data>
+  <data name="GrblSettings_RpmMin" xml:space="preserve">
+    <value>Min t/mn</value>
+  </data>
+  <data name="GrblSettings_XStepMm" xml:space="preserve">
+    <value>X, pas/mm</value>
+  </data>
+  <data name="GrblSettings_YStepMm" xml:space="preserve">
+    <value>Y, pas/mm</value>
+  </data>
+  <data name="GrblSettings_ZStepMm" xml:space="preserve">
+    <value>Z, pas/mm</value>
+  </data>
+  <data name="GrblSettings_AStepMm" xml:space="preserve">
+    <value>A, pas/mm</value>
+  </data>
+  <data name="GrblSettings_XMaxRateMmMin" xml:space="preserve">
+    <value>Taux Avance Max X, mm/min</value>
+  </data>
+  <data name="GrblSettings_YMaxRateMmMin" xml:space="preserve">
+    <value>Taux Avance Max Y, mm/min</value>
+  </data>
+  <data name="GrblSettings_ZMaxRateMmMin" xml:space="preserve">
+    <value>Taux Avance Max Z, mm/min</value>
+  </data>
+  <data name="GrblSettings_AMaxRateMmMin" xml:space="preserve">
+    <value>Taux Avance Max A, mm/min</value>
+  </data>
+  <data name="GrblSettings_XAccelMmSec2" xml:space="preserve">
+    <value>Accélération en X, mm/sec^2</value>
+  </data>
+  <data name="GrblSettings_YAccelMmSec2" xml:space="preserve">
+    <value>Accélération en Y, mm/sec^2</value>
+  </data>
+  <data name="GrblSettings_ZAccelMmSec2" xml:space="preserve">
+    <value>Accélération en Z, mm/sec^2</value>
+  </data>
+  <data name="GrblSettings_AAccelMmSec2" xml:space="preserve">
+    <value>Accélération en A, mm/sec^2</value>
+  </data>
+  <data name="GrblSettings_XMaxTravelMm" xml:space="preserve">
+    <value>Course Max en X, mm</value>
+  </data>
+  <data name="GrblSettings_YMaxTravelMm" xml:space="preserve">
+    <value>Course Max en Y, mm</value>
+  </data>
+  <data name="GrblSettings_ZMaxTravelMm" xml:space="preserve">
+    <value>Course Max en Z, mm</value>
+  </data>
+  <data name="GrblSettings_AMaxTravelMm" xml:space="preserve">
+    <value>Couse Max en A, mm</value>
+  </data>
+  <data name="GrblSettings_FillSettings_Value" xml:space="preserve">
+    <value>Valeur</value>
+  </data>
+  <data name="GrblSettings_LaserMode" xml:space="preserve">
+    <value>Mode laser</value>
+  </data>
+</root>
