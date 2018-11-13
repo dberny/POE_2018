@@ -4,9 +4,6 @@ with open('triangleGcode.txt', 'r+') as file:
     lines = file.readlines()
     for line in lines:
         print(type(line))
-        line = line.replace('Z-1', '')
-        line = line.replace('Z0.5', '')
-        line = line.replace('Z0', '')
 
         words = line.split()
         newline = ''
@@ -15,12 +12,19 @@ with open('triangleGcode.txt', 'r+') as file:
                 newline = newline + ' ' + word + ' U' + word[1:]
             elif (word[0] == 'Y'):
                 newline = newline + ' ' + word + ' Z' + word[1:]
-            else:
+            elif (word[0] == 'Z'):
+                newline = ''
+                break
+            elif (word[0] == 'G'):
                 newline += ' ' + word
-        newline += '\n'
+            elif (word[0] == 'F'):
+                newline += ' ' + word
+
+        if len(newline) > 0:
+            newline += '\n'
         print(newline)
 
-        with open('newfile.txt', 'a') as newfile: # add modified line to new file
+        with open('triangleTest.txt', 'a') as newfile:  # add modified line to new file
             newfile.write(newline)
 
 
