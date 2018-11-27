@@ -1,6 +1,6 @@
 float mmPerStep = 29.751/3200;
 
-int stepCount(distance) {
+int stepCount(int distance) {
   int num = distance/mmPerStep;
   return num;
 }

@@ -1,0 +1,45 @@
+(Generated with: DXF2GCODE, Version: Py3.6.2 PyQt5.9, Date: $Date: Mon Sep 25 13:57:11 2017 +0200 $)
+(Created from file: C:/Users/dberny/Desktop/POE_tests/boxFace.DXF)
+(Output format description: G-CODE for LinuxCNC)
+(Time: Tue Nov  6 11:17:37 2018)
+G21 (Units in millimeters)
+G90 (Absolute programming)
+G64 (Default cutting) G17 (XY plane) G40 (Cancel radius comp.) G49 (Cancel length comp.)
+G0 Z  15.000 
+
+(*** LAYER: 0 ***)
+T1 M6
+S6000
+
+(* SHAPE Nr: 0 *)
+G0 X   0.000 Y   0.000
+M3 M8
+G0 Z   3.000 
+F150
+G1 Z  -1.500
+F400
+G1 X   0.000 Y  50.000
+G1 X  12.500 Y  50.000
+G1 X  12.500 Y  60.000
+G1 X  37.500 Y  60.000
+G1 X  37.500 Y  50.000
+G1 X  50.000 Y  50.000
+G1 X  50.000 Y   0.000
+G1 X   0.000 Y   0.000
+F150
+G1 Z  -3.000
+F400
+G1 X   0.000 Y  50.000
+G1 X  12.500 Y  50.000
+G1 X  12.500 Y  60.000
+G1 X  37.500 Y  60.000
+G1 X  37.500 Y  50.000
+G1 X  50.000 Y  50.000
+G1 X  50.000 Y   0.000
+G1 X   0.000 Y   0.000
+F150
+G1 Z   3.000
+G0 Z  15.000 
+M9 M5
+G0 X   0.000 Y   0.000
+M2 (Program end)
