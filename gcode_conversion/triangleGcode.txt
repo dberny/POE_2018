@@ -1,9 +1,14 @@
 %
-G00 X5 Y15 F70
+( File created using Intuwiz Software Service )
+( http://www.intuwiz.com )
+( More information: http://www.intuwiz.com/right-triangle.html )
+( File created:  2018-11-16  19:59:04  )
+
+G00 X60 Y0 F70
 G01 Z-1 F50
-G01 X5 Y35 F50
-G01 X35 Y15
-G01 X5 Y15
+G01 X60 Y60 F50
+G01 X180 Y0
+G01 X60 Y0
 G00 Z0 F70
 M30
 %
