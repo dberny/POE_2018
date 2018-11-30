@@ -161,7 +161,6 @@ void delay_us(uint32_t us)
 void sys_sync_current_position()
 {
 /// 8c1
-  plan_set_current_position(sys.position[X_AXIS],sys.position[Y_AXIS],sys.position[Z_AXIS], sys.position[T_AXIS]);
-  gc_set_current_position(sys.position[X_AXIS],sys.position[Y_AXIS],sys.position[Z_AXIS], sys.position[T_AXIS]);
+  plan_set_current_position(sys.position[X_AXIS],sys.position[Y_AXIS],sys.position[Z_AXIS], sys.position[T_AXIS], sys.position[R_AXIS]);
+  gc_set_current_position(sys.position[X_AXIS],sys.position[Y_AXIS],sys.position[Z_AXIS], sys.position[T_AXIS], sys.position[R_AXIS]);
 }
-

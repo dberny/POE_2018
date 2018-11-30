@@ -42,13 +42,13 @@
 /// 8c0
 //#define N_AXIS 3 // Number of axes
 /// 8c1
-#define N_AXIS 4 // Number of axes
+#define N_AXIS 5 // Number of axes
 #define X_AXIS 0 // Axis indexing value
 #define Y_AXIS 1
 #define Z_AXIS 2
 /// 8c1
 #define T_AXIS 3
-
+#define R_AXIS 4
 
 #define MM_PER_INCH (25.40)
 #define INCH_PER_MM (0.0393701)
@@ -130,4 +130,3 @@ void delay_us(uint32_t us);
 void sys_sync_current_position();
 
 #endif
-

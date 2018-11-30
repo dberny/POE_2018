@@ -42,7 +42,7 @@
 #include "protocol.h"
 #include "report.h"
 /// 8c1
-#include "defaults.h"   /// AXIS_T_TYPE
+#include "defaults.h"   /// AXIS_T_TYPE, AXIS_R_TYPE
 
 #ifndef N_AXIS
   #error
@@ -91,6 +91,12 @@ void gc_set_current_position(int32_t x, int32_t y, int32_t z, int32_t t)
   gc.position[T_AXIS] = t/to_degrees(settings.steps_per_mm[T_AXIS]); /// steps_per_degrees
 #elif (AXIS_T_TYPE == LINEAR)
   gc.position[T_AXIS] = t/settings.steps_per_mm[T_AXIS];
+#endif
+
+#if (AXIS_R_TYPE == ROTARY)
+  gc.position[R_AXIS] = t/to_degrees(settings.steps_per_mm[R_AXIS]); /// steps_per_degrees
+#elif (AXIS_R_TYPE == LINEAR)
+  gc.position[R_AXIS] = t/settings.steps_per_mm[R_AXIS];
 #endif
 
 }
@@ -328,6 +334,40 @@ uint8_t gc_execute_line(char *line)
   #else
     #error
   #endif
+      //default: FAIL(STATUS_UNSUPPORTED_STATEMENT);
+
+
+  #if (AXIS_R_TYPE == LINEAR) 
+  /// axis U, V, W choice
+  #if AXIS_R == AXIS_V
+      case 'V' :
+    #elif AXIS_R == AXIS_W
+      case 'W' :
+    #endif
+    #if (AXIS_R == AXIS_V || AXIS_R == AXIS_W)
+        target[R_AXIS] = to_millimeters(value);
+        bit_true(axis_words,bit(R_AXIS));
+        break;
+      #else
+        #error
+    #endif
+  #elif (AXIS_R_TYPE == ROTARY)
+  /// axis A, B, C choice
+  #if AXIS_R == AXIS_B
+      case 'B':
+    #elif AXIS_R == AXIS_C
+      case 'C':
+    #endif
+    #if (AXIS_R == AXIS_B || AXIS_R == AXIS_C)
+        target[R_AXIS] = to_degrees(value);
+        bit_true(axis_words,bit(R_AXIS));
+    #else
+      #error
+    #endif
+    break;
+  #else
+    #error
+  #endif
       default: FAIL(STATUS_UNSUPPORTED_STATEMENT);
     }
 
@@ -433,8 +473,8 @@ uint8_t gc_execute_line(char *line)
             target[i] = gc.position[i];
           }
         }
-    /// 8c1 : line
-        mc_line(target[X_AXIS], target[Y_AXIS], target[Z_AXIS], target[T_AXIS], settings.default_seek_rate, false, C_LINE);
+    /// 8c1 : line, added r-axis
+        mc_line(target[X_AXIS], target[Y_AXIS], target[Z_AXIS], target[T_AXIS], target[R_AXIS], settings.default_seek_rate, false, C_LINE);
       }
       // Retreive G28/30 go-home position data (in machine coordinates) from EEPROM
       float coord_data[N_AXIS];
@@ -447,7 +487,7 @@ uint8_t gc_execute_line(char *line)
           return(STATUS_SETTING_READ_FAIL);
     }
 ///8c1  : line
-  mc_line(coord_data[X_AXIS], coord_data[Y_AXIS], coord_data[Z_AXIS], coord_data[T_AXIS], settings.default_seek_rate, false, C_LINE);
+  mc_line(coord_data[X_AXIS], coord_data[Y_AXIS], coord_data[Z_AXIS], coord_data[T_AXIS], coord_data[R_AXIS], settings.default_seek_rate, false, C_LINE);
 
       memcpy(gc.position, coord_data, sizeof(coord_data)); // gc.position[] = coord_data[];
       axis_words = 0; // Axis words used. Lock out from motion modes by clearing flags.
@@ -530,7 +570,7 @@ uint8_t gc_execute_line(char *line)
         }
         else
 /// 8c1 :line
-          mc_line(target[X_AXIS], target[Y_AXIS], target[Z_AXIS], target[T_AXIS],
+          mc_line(target[X_AXIS], target[Y_AXIS], target[Z_AXIS], target[T_AXIS], target[R_AXIS],
                   settings.default_seek_rate, false, C_LINE);
         break;
       case MOTION_MODE_LINEAR:
@@ -543,7 +583,7 @@ uint8_t gc_execute_line(char *line)
         }
         else {
 /// 8c1 :line
-          mc_line(target[X_AXIS], target[Y_AXIS], target[Z_AXIS], target[T_AXIS],
+          mc_line(target[X_AXIS], target[Y_AXIS], target[Z_AXIS], target[T_AXIS], target[R_AXIS],
                 (gc.inverse_feed_rate_mode) ? inverse_feed_rate : gc.feed_rate, gc.inverse_feed_rate_mode, C_LINE);
         }
         break;
@@ -732,4 +772,3 @@ static int next_statement(char *letter, float *float_ptr, char *line, uint8_t *c
    group 9 = {M48, M49} enable/disable feed and speed override switches
    group 13 = {G61, G61.1, G64} path control mode
 */
-

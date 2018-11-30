@@ -37,7 +37,7 @@
 // unless invert_feed_rate is true. Then the feed_rate means that the motion should be completed in
 // (1 minute)/feed_rate time.
 /// 8c1
-void mc_line(float x, float y, float z, float t, float feed_rate, uint8_t invert_feed_rate, uint8_t t_curve);
+void mc_line(float x, float y, float z, float t, float r, float feed_rate, uint8_t invert_feed_rate, uint8_t t_curve);
 
 // Execute an arc in offset mode format. position == current xyz, target == target xyz,
 // offset == offset from current xyz, axis_XXX defines circle plane in tool space, axis_linear is
@@ -56,4 +56,3 @@ void mc_go_home();
 void mc_reset();
 
 #endif
-

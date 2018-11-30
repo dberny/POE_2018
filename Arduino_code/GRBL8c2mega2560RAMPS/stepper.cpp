@@ -48,7 +48,8 @@ typedef struct {
   int32_t counter_x,        // Counter variables for the bresenham line tracer
           counter_y,
           counter_z,
-          counter_t;  /// 8c1
+          counter_t,  /// 8c1
+          counter_r;
 
   uint32_t event_count;
   uint32_t step_events_completed;  // The number of step events left in current motion
@@ -208,6 +209,7 @@ ISR(TIMER1_COMPA_vect)
       st.counter_z = st.counter_x;
 /// 8c1
     st.counter_t = st.counter_x;
+      st.counter_r = st.counter_x;
       st.event_count = current_block->step_event_count;
       st.step_events_completed = 0;
     }
@@ -256,6 +258,16 @@ ISR(TIMER1_COMPA_vect)
     sys.position[T_AXIS]--;
       else
         sys.position[T_AXIS]++;
+    }
+
+    st.counter_r += current_block->steps_t;
+    if (st.counter_r > 0) {
+      out_bits |= (1<<R_STEP_BIT);
+      st.counter_r -= st.event_count;
+      if (out_bits & (1<<R_DIRECTION_BIT))
+    sys.position[R_AXIS]--;
+      else
+        sys.position[R_AXIS]++;
     }
     st.step_events_completed++; // Iterate step events
 
@@ -525,4 +537,3 @@ void st_cycle_reinitialize()
   else
     sys.state = STATE_IDLE;
 }
-

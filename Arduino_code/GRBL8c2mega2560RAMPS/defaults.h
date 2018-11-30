@@ -46,24 +46,38 @@
 /// axis choice
  #if AXIS_T_TYPE == LINEAR
   #define AXIS_U   4
-  #define AXIS_V   5
-  #define AXIS_W   6
   // linear axis
   #define AXIS_T  AXIS_U  /// ==> You must choose your fourth linear axis  <==
  #elif AXIS_T_TYPE == ROTARY
   #define AXIS_A   7
-  #define AXIS_B   8
-  #define AXIS_C   9
   // rotary axis
-  #define AXIS_T  AXIS_C  /// ==> You must choose your rotary fourth axis  <==
+  #define AXIS_T  AXIS_A  /// ==> You must choose your rotary fourth axis  <==
  #else
   /// -> (X, Y, Z)
   #error "The macro "AXIS_T" is not initialized"
  #endif
 
+// adding fifth rotary motor
+ #if AXIS_R_TYPE == LINEAR
+  #define AXIS_V   5
+  // linear axis
+  #define AXIS_T  AXIS_V  /// new axis
+ #elif AXIS_R_TYPE == ROTARY
+  #define AXIS_B   8
+  // rotary axis
+  #define AXIS_R  AXIS_B  /// ==> You must choose your rotary fourth axis  <==
+ #else
+  /// -> (X, Y, Z)
+  #error "The macro "AXIS_R" is not initialized"
+ #endif
+
  // Checking the definition of "AXIS_T"
  #ifndef AXIS_T
      #error "The macro "AXIS_T" is not defined"
+  #endif
+
+  #ifndef AXIS_R
+     #error "The macro "AXIS_R" is not defined"
   #endif
 //==============================================================================
 
@@ -239,27 +253,30 @@
 
 #ifdef DEFAULTS_SANDER02
   ///  step_per_revolution = number of motor steps per revolution
-  #define USER_STEP_PER_REVOLUTION  200
+  #define USER_STEP_PER_REVOLUTION  200*16 // finest microstepping, 16 microsteps per step
   /// board TB6560 -> 2 Âµsteps
   #define USER_MICROSTEPS 2
   ///  pitch_screw = pitch of screw
   #define USER_PITCH_SCREW   4  // 4mm for all linear axes
   #define USER_STEP_MM  (USER_STEP_PER_REVOLUTION/USER_PITCH_SCREW)
   ///  ratio_table  =  the worm gear ratio
-  #define USER_RATIO_TABLE  90   // for rotary axis
+  #define USER_RATIO_TABLE  1   // for rotary axis, 1 because it is a 1:1 spin with base
   // user values
   // calculated value Grbl = ratio_table*step_per_revolution/360
   #define USER_TABLE   ((USER_RATIO_TABLE*USER_STEP_PER_REVOLUTION)/360.0)
 //==============================================================================
-  #define DEFAULT_X_STEPS_PER_MM 67.114
-  #define DEFAULT_Y_STEPS_PER_MM 1511.811
-  #define DEFAULT_Z_STEPS_PER_MM 1511.811
+  #define DEFAULT_X_STEPS_PER_MM 114.012
+  #define DEFAULT_Y_STEPS_PER_MM 427.35
+  #define DEFAULT_Z_STEPS_PER_MM 427.35
 /// 8c2
-  #define DEFAULT_T_STEPS_PER_MM 67.114
+  #define DEFAULT_T_STEPS_PER_MM 114.012
 
 //#if (AXIS_T_TYPE == ROTARY)
 //  #define DEFAULT_T_STEPS_PER_DEGREE (USER_TABLE*USER_MICROSTEPS)
 //#endif
+
+  #if (AXIS_R_TYPE == ROTARY)
+    #define DEFAULT_R_STEPS_PER_DEGREE (USER_RATIO_TABLE*USER_MICROSTEPS)
 
   #define DEFAULT_STEP_PULSE_MICROSECONDS 10
   #define DEFAULT_MM_PER_ARC_SEGMENT 0.1
@@ -285,6 +302,5 @@
   #define DEFAULT_DECIMAL_PLACES 3
   #define DEFAULT_N_ARC_CORRECTION 25
 #endif
-
 #endif
-
+#endif

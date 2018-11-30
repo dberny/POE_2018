@@ -146,7 +146,16 @@ static void homing_cycle(uint8_t cycle_mask, int8_t pos_dir, bool invert_pin, fl
 #endif
   }
 
-  uint32_t step_event_count = max(steps[X_AXIS], max(steps[Y_AXIS], max (steps[Z_AXIS], steps[T_AXIS])));
+  if (cycle_mask & (1<<R_AXIS)) {
+    dist++;
+#if (AXIS_R_TYPE == ROTARY )
+  steps[R_AXIS] = lround(to_degrees(settings.steps_per_mm[R_AXIS]));    // steps_per_degree
+#else
+  steps[R_AXIS] = lround(settings.steps_per_mm[R_AXIS]);
+#endif
+  }
+
+  uint32_t step_event_count = max(steps[X_AXIS], max(steps[Y_AXIS], max (steps[Z_AXIS], max(steps[T_AXIS], steps[R_AXIS]))));
 
   // To ensure global acceleration is not exceeded, reduce the governing axes nominal rate
   // by adjusting the actual axes distance traveled per step. This is the same procedure
@@ -182,6 +191,7 @@ static void homing_cycle(uint8_t cycle_mask, int8_t pos_dir, bool invert_pin, fl
   int32_t counter_z = counter_x;
 /// 8c1
   int32_t counter_t = counter_x;
+  int32_t counter_r = counter_x;
   uint32_t step_delay = dt-settings.pulse_microseconds;  // Step delay after pulse
   uint32_t step_rate = 0;  // Tracks step rate. Initialized from 0 rate. (in step/min)
   uint32_t trap_counter = MICROSECONDS_PER_ACCELERATION_TICK/2; // Acceleration trapezoid counter
@@ -228,6 +238,15 @@ static void homing_cycle(uint8_t cycle_mask, int8_t pos_dir, bool invert_pin, fl
       if (counter_t > 0) {
         if (limit_state & (1<<T_LIMIT_BIT)) { out_bits ^= (1<<T_STEP_BIT); }
         else { cycle_mask &= ~(1<<T_AXIS); }
+        counter_t -= step_event_count;
+      }
+    }
+
+    if (cycle_mask & (1<<R_AXIS)) {
+      counter_r += steps[R_AXIS] ;
+      if (counter_r > 0) {
+        if (limit_state & (1<<R_LIMIT_BIT)) { out_bits ^= (1<<R_STEP_BIT); }
+        else { cycle_mask &= ~(1<<R_AXIS); }
         counter_t -= step_event_count;
       }
     }
@@ -289,4 +308,3 @@ void limits_go_home()
 
   st_go_idle(); // Call main stepper shutdown routine.
 }
-

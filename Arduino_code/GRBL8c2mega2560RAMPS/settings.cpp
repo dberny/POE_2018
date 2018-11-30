@@ -43,6 +43,9 @@
 #if (T_AXIS != 3)
   #error
 #endif
+#if (R_AXIS != 4)
+  #error
+#endif
 #ifndef LINE_BUFFER_SIZE
   #error
 #endif
@@ -52,7 +55,7 @@ settings_t settings;
 // Version 4 outdated settings record
 typedef struct {
 /// 8c1
-  float steps_per_mm[4];
+  float steps_per_mm[5];
   uint8_t microsteps;
   uint8_t pulse_microseconds;
   float default_feed_rate;
@@ -96,6 +99,9 @@ void settings_reset(bool reset_all) {
     settings.steps_per_mm[T_AXIS] = DEFAULT_T_STEPS_PER_MM;
 #if (AXIS_T_TYPE == ROTARY)
     settings.steps_per_mm[T_AXIS] = DEFAULT_T_STEPS_PER_DEGREE ;
+#endif
+#if (AXIS_R_TYPE == ROTARY)
+    settings.steps_per_mm[R_AXIS] = DEFAULT_R_STEPS_PER_DEGREE ;
 #endif
     settings.pulse_microseconds = DEFAULT_STEP_PULSE_MICROSECONDS;
     settings.default_feed_rate = DEFAULT_FEEDRATE;
@@ -209,6 +215,18 @@ uint8_t settings_store_global_setting(int parameter, float value) {
     settings.steps_per_mm[parameter] = to_degrees(value);
   #endif
     break;
+
+    case 24:// axis R : linear -> V or W,  rotary -> B or C
+  #if (AXIS_R_TYPE == LINEAR)
+    if (value <= 0.0)
+      return (STATUS_SETTING_VALUE_NEG);
+    settings.steps_per_mm[parameter] = value;
+  #elif (AXIS_R_TYPE == ROTARY)
+    if (value < -360.0 || value > 360.0)
+      return (STATUS_BAD_NUMBER_DEGREE);
+    settings.steps_per_mm[parameter] = to_degrees(value);
+  #endif
+    break;
 /// <--
     case 4:
       if (value < 3) { return(STATUS_SETTING_STEP_PULSE_MIN); }
@@ -303,4 +321,3 @@ void settings_init() {
   }
   // NOTE: Startup lines are handled and called by main.c at the end of initialization.
 }
-

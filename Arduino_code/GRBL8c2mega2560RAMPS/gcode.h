@@ -104,10 +104,9 @@ uint8_t gc_execute_line(char *line);
 
 // Set g-code parser position. Input in steps.
 /// 8c1
-void gc_set_current_position(int32_t x, int32_t y, int32_t z, int32_t t);
+void gc_set_current_position(int32_t x, int32_t y, int32_t z, int32_t t, int32_t r);
 
 /// 8c0
 float to_degrees(float value) ;
 
 #endif
-

@@ -149,6 +149,12 @@ extern "C" {
             WRITE(E0_STEP_PIN, 0);
          }
 
+        if (CHECK(value, R_STEP_BIT)) {
+            WRITE(E1_STEP_PIN, 1);
+        } else {
+            WRITE(E1_STEP_PIN, 0);
+         }
+
     }
 
 /**
@@ -188,6 +194,12 @@ extern "C" {
         } else {
             WRITE(E0_DIR_PIN, 1);
         }
+
+        if (CHECK(value, R_DIRECTION_BIT)) {
+            WRITE(E1_DIR_PIN, 0);
+        } else {
+            WRITE(E1_DIR_PIN, 1);
+        }
     }
 
 
@@ -196,4 +208,3 @@ extern "C" {
 #endif
 
 #endif  /* RAMPS_H */
-

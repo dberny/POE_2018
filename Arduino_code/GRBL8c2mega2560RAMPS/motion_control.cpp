@@ -57,7 +57,7 @@
 // backlash segment(s).
 /// 8c1
 
-void mc_line(float x, float y, float z, float t, float feed_rate, uint8_t invert_feed_rate, uint8_t t_curve)
+void mc_line(float x, float y, float z, float t, float r, float feed_rate, uint8_t invert_feed_rate, uint8_t t_curve)
 {
   // TODO: Perform soft limit check here. Just check if the target x,y,z values are outside the
   // work envelope. Should be straightforward and efficient. By placing it here, rather than in
@@ -80,7 +80,7 @@ void mc_line(float x, float y, float z, float t, float feed_rate, uint8_t invert
     if (sys.abort) { return; } // Bail, if system abort.
   } while ( plan_check_full_buffer() );
 
-  plan_buffer_line(x, y, z, t, feed_rate, invert_feed_rate, t_curve);
+  plan_buffer_line(x, y, z, t, r, feed_rate, invert_feed_rate, t_curve);
 
   // If idle, indicate to the system there is now a planned block in the buffer ready to cycle
   // start. Otherwise ignore and continue on.
@@ -196,14 +196,14 @@ void mc_arc(float *position, float *target, float *offset, uint8_t axis_0, uint8
     arc_target[axis_1] = center_axis1 + r_axis1;
     arc_target[axis_linear] += linear_per_segment;
 /// 8c1  -> 0 for T_AXIS  and  arc = true
-  mc_line(arc_target[X_AXIS], arc_target[Y_AXIS], arc_target[Z_AXIS], 0, feed_rate, invert_feed_rate, C_ARC);
+  mc_line(arc_target[X_AXIS], arc_target[Y_AXIS], arc_target[Z_AXIS], 0, 0, feed_rate, invert_feed_rate, C_ARC);
 
     // Bail mid-circle on system abort. Runtime command check already performed by mc_line.
     if (sys.abort) { return; }
   }
   // Ensure last segment arrives at target location.
 /// 8c1 -> 0 for T_AXIS  and  arc
-   mc_line(target[X_AXIS], target[Y_AXIS], target[Z_AXIS], 0, feed_rate, invert_feed_rate, C_ARC) ;
+   mc_line(target[X_AXIS], target[Y_AXIS], target[Z_AXIS], 0, 0, feed_rate, invert_feed_rate, C_ARC) ;
 }
 
 
@@ -245,8 +245,8 @@ void mc_go_home()
   // This provides some initial clearance off the switches and should also help prevent them
   // from falsely tripping when hard limits are enabled.
 /// 8c1
-  int8_t x_dir, y_dir, z_dir, t_dir;
-  x_dir = y_dir = z_dir = t_dir = 0;
+  int8_t x_dir, y_dir, z_dir, t_dir, r_dir;
+  x_dir = y_dir = z_dir = t_dir = r_dir = 0;
   if (HOMING_LOCATE_CYCLE & (1<<X_AXIS)) {
     if (settings.homing_dir_mask & (1<<X_DIRECTION_BIT))
     x_dir = 1;
@@ -267,8 +267,13 @@ void mc_go_home()
     else { t_dir = -1; }
   }
 
+  if (HOMING_LOCATE_CYCLE & (1<<R_AXIS)) {
+    if (settings.homing_dir_mask & (1<<R_DIRECTION_BIT)) { r_dir = 1; }
+    else { r_dir = -1; }
+  }
+
 /// 8c1 : line
-  mc_line(x_dir*settings.homing_pulloff, y_dir*settings.homing_pulloff,
+  mc_line(x_dir*settings.homing_pulloff, y_dir*settings.homing_pulloff, r_dir*settings.homing_pulloff,
           z_dir*settings.homing_pulloff, t_dir*settings.homing_pulloff, settings.homing_seek_rate, false, C_LINE);
 
   st_cycle_start(); // Move it. Nothing should be in the buffer except this motion.
@@ -310,4 +315,3 @@ void mc_reset()
     }
   }
 }
-

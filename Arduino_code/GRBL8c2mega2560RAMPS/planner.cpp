@@ -42,6 +42,9 @@
 #ifndef AXIS_T_TYPE
   #error
 #endif
+#ifndef AXIS_R_TYPE
+  #error
+#endif
 #include "gcode.h"  /// to_degrees()
 
 static block_t block_buffer[BLOCK_BUFFER_SIZE];  // A ring buffer for motion instructions
@@ -358,7 +361,7 @@ void plan_synchronize()
 // independent of any coordinate system changes and offsets, which are handled by the g-code parser.
 // NOTE: Assumes buffer is available. Buffer checks are handled at a higher level by motion_control.
 /// 8c1
-void plan_buffer_line(float x, float y, float z, float t, float feed_rate, uint8_t invert_feed_rate, uint8_t t_curve)
+void plan_buffer_line(float x, float y, float z, float t, float r, float feed_rate, uint8_t invert_feed_rate, uint8_t t_curve)
 {
   // Prepare to set up new block
   block_t *block = &block_buffer[block_buffer_head];
@@ -379,6 +382,12 @@ void plan_buffer_line(float x, float y, float z, float t, float feed_rate, uint8
   target[T_AXIS] = lround(t*to_degrees(settings.steps_per_mm[T_AXIS]));
 #endif
 
+#if (AXIS_R_TYPE == LINEAR)
+    target[R_AXIS] = lround(t*settings.steps_per_mm[R_AXIS]);
+#else
+  target[R_AXIS] = lround(t*to_degrees(settings.steps_per_mm[R_AXIS]));
+#endif
+
   // Compute direction bits for this block
   block->direction_bits = 0;
   if (target[X_AXIS] < pl.position[X_AXIS]) { block->direction_bits |= (1<<X_DIRECTION_BIT); }
@@ -386,6 +395,7 @@ void plan_buffer_line(float x, float y, float z, float t, float feed_rate, uint8
   if (target[Z_AXIS] < pl.position[Z_AXIS]) { block->direction_bits |= (1<<Z_DIRECTION_BIT); }
 /// 8c1
   if (target[T_AXIS] < pl.position[T_AXIS]) { block->direction_bits |= (1<<T_DIRECTION_BIT); }
+  if (target[R_AXIS] < pl.position[R_AXIS]) { block->direction_bits |= (1<<R_DIRECTION_BIT); }
 
 
   // Number of steps for each axis
@@ -393,6 +403,7 @@ void plan_buffer_line(float x, float y, float z, float t, float feed_rate, uint8
   block->steps_y = labs(target[Y_AXIS]-pl.position[Y_AXIS]);
   block->steps_z = labs(target[Z_AXIS]-pl.position[Z_AXIS]);
   block->steps_t = labs(target[T_AXIS]-pl.position[T_AXIS]);
+  block->steps_r = labs(target[R_AXIS]-pl.position[R_AXIS]);
 
   
 /// 8c1
@@ -401,7 +412,7 @@ void plan_buffer_line(float x, float y, float z, float t, float feed_rate, uint8
   else
     //block->steps_t = labs(target[T_AXIS]-pl.position[T_AXIS]);
 
-  block->step_event_count = max(block->steps_x, max(block->steps_y, max(block->steps_z, block->steps_t)));
+  block->step_event_count = max(block->steps_x, max(block->steps_y, max(block->steps_z, max(block->steps_t, block->steps_r))));
 
   // Bail if this is a zero-length block
   if (block->step_event_count == 0)
@@ -423,6 +434,12 @@ void plan_buffer_line(float x, float y, float z, float t, float feed_rate, uint8
 #else
   delta_mm[T_AXIS] = (target[T_AXIS]-pl.position[T_AXIS])/to_degrees(settings.steps_per_mm[T_AXIS]);
 #endif
+
+#if (AXIS_R_TYPE == LINEAR)
+  delta_mm[R_AXIS] = (target[R_AXIS]-pl.position[R_AXIS])/settings.steps_per_mm[R_AXIS];
+#else
+  delta_mm[R_AXIS] = (target[R_AXIS]-pl.position[R_AXIS])/to_degrees(settings.steps_per_mm[R_AXIS]);
+#endif
 /// <--
   // SKW
   #ifdef FOAM_CUTTER
@@ -437,6 +454,7 @@ void plan_buffer_line(float x, float y, float z, float t, float feed_rate, uint8
                               + delta_mm[Y_AXIS]*delta_mm[Y_AXIS]
                               + delta_mm[Z_AXIS]*delta_mm[Z_AXIS]
                               + delta_mm[T_AXIS]*delta_mm[T_AXIS]
+                              + delta_mm[R_AXIS]*delta_mm[R_AXIS]
                               );
     //block->millimeters += labs(delta_mm[T_AXIS]);
   #endif
@@ -473,6 +491,7 @@ void plan_buffer_line(float x, float y, float z, float t, float feed_rate, uint8
   unit_vec[Z_AXIS] = delta_mm[Z_AXIS]*inverse_millimeters;
 /// 8c1  for t_arc  -> 0
   unit_vec[T_AXIS] = delta_mm[T_AXIS]*inverse_millimeters;
+  unit_vec[R_AXIS] = delta_mm[R_AXIS]*inverse_millimeters;
 
   // SKW TODO: handle T_AXIS and decouple XY / UV planes
 
@@ -550,12 +569,13 @@ void plan_buffer_line(float x, float y, float z, float t, float feed_rate, uint8
 
 // Reset the planner position vector (in steps). Called by the system abort routine.
 /// 8c1
-void plan_set_current_position(int32_t x, int32_t y, int32_t z, int32_t t)
+void plan_set_current_position(int32_t x, int32_t y, int32_t z, int32_t t, int32_t r)
 {
   pl.position[X_AXIS] = x;
   pl.position[Y_AXIS] = y;
   pl.position[Z_AXIS] = z;
   pl.position[T_AXIS] = t;
+  pl.position[R_AXIS] = r;
 }
 
 // Re-initialize buffer plan with a partially completed block, assumed to exist at the buffer tail.

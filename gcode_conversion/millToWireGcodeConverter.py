@@ -1,6 +1,6 @@
 
 #read file
-with open('triangleGcode.txt', 'r+') as file:
+with open('circle.txt', 'r+') as file:
     lines = file.readlines()
     for line in lines:
         print(type(line))
@@ -26,10 +26,10 @@ with open('triangleGcode.txt', 'r+') as file:
 
         num = newline.split()
         if len(num) > 1:
-            with open('triangleTest.txt', 'a') as newfile: # add modified line to new file
+            with open('betterCircle.txt', 'a') as newfile: # add modified line to new file
                 newfile.write(newline)
 
-    with open('triangleTest.txt', 'a') as newfile:  # add modified line to new file
+    with open('betterCircle.txt', 'a') as newfile:  # add modified line to new file
                     newfile.write('G01 X0 U0 Y0 Z0')
 #write file again
 # with open('newfile.txt', 'w') as file:

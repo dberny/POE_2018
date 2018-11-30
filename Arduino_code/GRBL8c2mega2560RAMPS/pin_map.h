@@ -49,6 +49,10 @@
     #error "The macro "AXIS_T_TYPE" is not defined in 'config.h' !"
 #endif
 
+#ifndef AXIS_R_TYPE
+    #error "The macro "AXIS_R_TYPE" is not defined in 'config.h' !"
+#endif
+
   // Serial port pins
   #define SERIAL_RX USART0_RX_vect
   #define SERIAL_UDRE USART0_UDRE_vect
@@ -62,16 +66,18 @@
   #define Z_STEP_BIT        4 // MEGA2560 Digital Pin 26
 /// 8c2
   #define T_STEP_BIT        1 // MEGA2560 Digital Pin 23
+  #define R_STEP_BIT        5
 
   #define X_DIRECTION_BIT   5 // MEGA2560 Digital Pin 27
   #define Y_DIRECTION_BIT   6 // MEGA2560 Digital Pin 28
   #define Z_DIRECTION_BIT   7 // MEGA2560 Digital Pin 29
 /// 8c2
   #define T_DIRECTION_BIT   0 // MEGA2560 Digital Pin 22
+  #define R_DIRECTION_BIT   4
   // All step bits
-  #define STEP_MASK ((1<<X_STEP_BIT)|(1<<Y_STEP_BIT)|(1<<Z_STEP_BIT)|(1<<T_STEP_BIT) )
+  #define STEP_MASK ((1<<X_STEP_BIT)|(1<<Y_STEP_BIT)|(1<<Z_STEP_BIT)|(1<<T_STEP_BIT)|(1<<R_STEP_BIT))
   // All direction bits
-  #define DIRECTION_MASK ((1<<X_DIRECTION_BIT)|(1<<Y_DIRECTION_BIT)|(1<<Z_DIRECTION_BIT) |(1<<T_DIRECTION_BIT))
+  #define DIRECTION_MASK ((1<<X_DIRECTION_BIT)|(1<<Y_DIRECTION_BIT)|(1<<Z_DIRECTION_BIT) |(1<<T_DIRECTION_BIT)|(1<<R_DIRECTION_BIT))
 
 /// <--
   // All stepping-related bits (step/direction)
@@ -96,11 +102,12 @@
   #define Z_LIMIT_BIT     6 // MEGA2560 Digital Pin 12
 /// 8c2
   #define T_LIMIT_BIT   3 // MEGA2560 Digital Pin 9
+  #define R_LIMIT_BIT   2
 
   #define LIMIT_INT       PCIE0  // Pin change interrupt enable pin
   #define LIMIT_INT_vect  PCINT0_vect
   #define LIMIT_PCMSK     PCMSK0 // Pin change interrupt register
-  #define LIMIT_MASK ((1<<X_LIMIT_BIT)|(1<<Y_LIMIT_BIT)|(1<<Z_LIMIT_BIT) |(1<<T_LIMIT_BIT)) // All limit bits
+  #define LIMIT_MASK ((1<<X_LIMIT_BIT)|(1<<Y_LIMIT_BIT)|(1<<Z_LIMIT_BIT) |(1<<T_LIMIT_BIT)|(1<<R_LIMIT_BIT)) // All limit bits
 
   #define SPINDLE_ENABLE_DDR   DDRC
   #define SPINDLE_ENABLE_PORT  PORTC
@@ -153,25 +160,31 @@
 
 
 // MOD GRBL for Cyclone
+// actually maps to arduino mega2560
 #define XLIM_PIN            3
 #define YLIM_PIN           14
 
+//e0 motor
 #define X_STEP_PIN         26 //54 //PF0 ( ADC0 )
 #define X_DIR_PIN          28 //55 //PF1 ( ADC1 )
 #define X_ENABLE_PIN       24 //38 //PD7 ( T0 )
 
+//e1 motor
 #define Y_STEP_PIN         36 //60 //PF6 ( ADC6 )
 #define Y_DIR_PIN          34 //61 //PF7 ( ADC7 )
 #define Y_ENABLE_PIN       30 //56 //PF2 ( ADC2 )
 
+//z motor
 #define Z_STEP_PIN         46 //46 //PL3 ( OC5A )
 #define Z_DIR_PIN          48 //48 //PL1 ( ICP5 )
 #define Z_ENABLE_PIN       62 //62 //PK0 ( ADC8/PCINT16 )
 
+//y motor
 #define E0_STEP_PIN        60 //26 //PA4 4TH AXIS IS CONFIGURED HERE! CAN BE CHANGED IN RAMPS.H
 #define E0_DIR_PIN         61 //28 //PA6
 #define E0_ENABLE_PIN      56 //24 //PA2
 
+//x motor
 #define E1_STEP_PIN         54 //36 
 #define E1_DIR_PIN          55 //34
 #define E1_ENABLE_PIN       58 //30
@@ -187,4 +200,3 @@
 
 
 #endif
-

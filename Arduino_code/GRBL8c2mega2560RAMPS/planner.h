@@ -48,7 +48,7 @@ typedef struct {
   // Fields used by the bresenham algorithm for tracing the line
   uint8_t  direction_bits;            // The direction bit set for this block (refers to *_DIRECTION_BIT in config.h)
 /// 8c1
-  uint32_t steps_x, steps_y, steps_z, steps_t; // Step count along each axis
+  uint32_t steps_x, steps_y, steps_z, steps_t, steps_r; // Step count along each axis
 /// 8c0 int32_t -> uint32_t
   uint32_t  step_event_count;          // The number of step events required to complete this block
 
@@ -77,7 +77,7 @@ void plan_init();
 // millimaters. Feed rate specifies the speed of the motion. If feed rate is inverted, the feed
 // rate is taken to mean "frequency" and would complete the operation in 1/feed_rate minutes.
 /// 8c1
-void plan_buffer_line(float x, float y, float z, float t, float feed_rate, uint8_t invert_feed_rate, uint8_t t_arc);
+void plan_buffer_line(float x, float y, float z, float t, float r, float feed_rate, uint8_t invert_feed_rate, uint8_t t_arc);
 
 // Called when the current block is no longer needed. Discards the block and makes the memory
 // availible for new blocks.
@@ -88,7 +88,7 @@ block_t *plan_get_current_block();
 
 // Reset the planner position vector (in steps)
 /// 8c1
-void plan_set_current_position(int32_t x, int32_t y, int32_t z, int32_t t);
+void plan_set_current_position(int32_t x, int32_t y, int32_t z, int32_t t, int32_t r);
 
 // Reinitialize plan with a partially completed block
 void plan_cycle_reinitialize(int32_t step_events_remaining);
@@ -103,4 +103,3 @@ uint8_t plan_check_full_buffer();
 void plan_synchronize();
 
 #endif
-

@@ -49,7 +49,7 @@
 //  the axes  -> GRBL_AXIS
 #if (AXIS_T_TYPE == LINEAR)
   #if AXIS_T == AXIS_U
-    #define GRBL_AXIS  "(X, Y, Z, U)"
+    #define GRBL_AXIS  "(X, Y, Z, U, B)"
   #elif AXIS_T == AXIS_V
     #define GRBL_AXIS "(X, Y, Z, V)"
   #elif AXIS_T == AXIS_W
@@ -243,6 +243,11 @@ void report_grbl_settings() {
   printFloat (settings.steps_per_mm[T_AXIS]); printPgmString (PSTR (" (t, step/mm.)\r\n$4=") );
 #elif (AXIS_T_TYPE == ROTARY)
   printFloat (to_degrees(settings.steps_per_mm[T_AXIS])); printPgmString (PSTR (" (t, step/deg.)\r\n$4=") );
+#endif
+#if (AXIS_R_TYPE == LINEAR)
+  printFloat (settings.steps_per_mm[R_AXIS]); printPgmString (PSTR (" (r, step/mm.)\r\n$24=") );
+#elif (AXIS_R_TYPE == ROTARY)
+  printFloat (to_degrees(settings.steps_per_mm[R_AXIS])); printPgmString (PSTR (" (r, step/deg.)\r\n$24=") );
 #endif
     printInteger (settings.pulse_microseconds); printPgmString (PSTR (" (step pulse, usec)\r\n$5=") );
     printFloat (settings.default_feed_rate); printPgmString (PSTR (" (default feed, mm/min)\r\n$6=") );
@@ -530,10 +535,29 @@ void report_realtime_status() {
     else
       print_position[i] = current_position[i] / settings.steps_per_mm[i];
 
+    if (i == R_AXIS)
+    #if (AXIS_R_TYPE == ROTARY)
+      print_position[i] = current_position[i] / to_degrees(settings.steps_per_mm[i]);
+    #elif (AXIS_R_TYPE == LINEAR)
+      print_position[i] = current_position[i] / settings.steps_per_mm[i];
+    #endif
+    else
+      print_position[i] = current_position[i] / settings.steps_per_mm[i];
+
         if (bit_istrue (settings.flags, BITFLAG_REPORT_INCHES) ) {
 /// 8c1
       if (i == T_AXIS){
       #if (AXIS_T_TYPE == LINEAR)
+        print_position[i] *= INCH_PER_MM;
+      #endif
+      }
+//      else
+//        print_position[i] *= INCH_PER_MM;
+//        }
+//        printFloat (print_position[i]);
+
+      if (i == R_AXIS){
+      #if (AXIS_R_TYPE == LINEAR)
         print_position[i] *= INCH_PER_MM;
       #endif
       }
@@ -560,6 +584,12 @@ void report_realtime_status() {
       #elif (AXIS_T_TYPE == ROTARY)
         print_position[i] -= (gc.coord_system[i] + gc.coord_offset[i]);
       #endif
+      else if (i == R_AXIS)
+      #if (AXIS_R_TYPE == LINEAR)
+        print_position[i] -= (gc.coord_system[i] + gc.coord_offset[i]) * INCH_PER_MM;
+      #elif (AXIS_R_TYPE == ROTARY)
+        print_position[i] -= (gc.coord_system[i] + gc.coord_offset[i]);
+      #endif
       else
         print_position[i] -= (gc.coord_system[i] + gc.coord_offset[i]) * INCH_PER_MM;
         }
@@ -576,4 +606,3 @@ void report_realtime_status() {
    // printPgmString (PSTR ("]>\r\n") );
      printPgmString (PSTR (">\r\n") );
 }
-

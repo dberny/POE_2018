@@ -61,6 +61,8 @@
 #define AXIS_T_TYPE  LINEAR    //  0 -> linear
 //#define AXIS_T_TYPE   ROTARY    //  1 -> rotary
 
+#define AXIS_R_TYPE     ROTARY    // fifth axis
+
 // Default pin mappings. Grbl officially supports the Arduino Uno only. Other processor types
 // may exist from user-supplied templates or directly user-defined in pin_map.h
 //#define PIN_MAP_ARDUINO_UNO
@@ -236,4 +238,3 @@
 // TODO: Install compile-time option to send numeric status codes rather than strings.
 
 #endif
-
