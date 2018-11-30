@@ -79,7 +79,7 @@ void gc_init()
 // Sets g-code parser position in mm. Input in steps. Called by the system abort and hard
 // limit pull-off routines.
 /// 8c1
-void gc_set_current_position(int32_t x, int32_t y, int32_t z, int32_t t)
+void gc_set_current_position(int32_t x, int32_t y, int32_t z, int32_t t, int32_t r)
 {
   gc.position[X_AXIS] = x/settings.steps_per_mm[X_AXIS];
   gc.position[Y_AXIS] = y/settings.steps_per_mm[Y_AXIS];
@@ -94,9 +94,9 @@ void gc_set_current_position(int32_t x, int32_t y, int32_t z, int32_t t)
 #endif
 
 #if (AXIS_R_TYPE == ROTARY)
-  gc.position[R_AXIS] = t/to_degrees(settings.steps_per_mm[R_AXIS]); /// steps_per_degrees
+  gc.position[R_AXIS] = r/to_degrees(settings.steps_per_mm[R_AXIS]); /// steps_per_degrees
 #elif (AXIS_R_TYPE == LINEAR)
-  gc.position[R_AXIS] = t/settings.steps_per_mm[R_AXIS];
+  gc.position[R_AXIS] = r/settings.steps_per_mm[R_AXIS];
 #endif
 
 }
